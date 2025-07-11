@@ -3,7 +3,9 @@ import {
   Karla_700Bold,
   useFonts,
 } from "@expo-google-fonts/karla";
-import { StatusBar, Text, View } from "react-native";
+import { StatusBar, View } from "react-native";
+import { Center, GluestackUIProvider, Text } from "@gluestack-ui/themed";
+import { config } from "./config/gluestack-ui.config";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -11,13 +13,19 @@ export default function App() {
     Karla_700Bold,
   });
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+    <GluestackUIProvider config={config}>
       <StatusBar
         barStyle={"dark-content"}
         backgroundColor={"transparent"}
         translucent
       />
-      {fontsLoaded ? <Text>home</Text> : <View />}
-    </View>
+      {fontsLoaded ? (
+        <Center flex={1} bg="$gray600">
+          <Text color="$gray100">Home</Text>
+        </Center>
+      ) : (
+        <View />
+      )}
+    </GluestackUIProvider>
   );
 }
